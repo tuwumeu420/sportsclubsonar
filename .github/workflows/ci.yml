@@ -105,7 +105,7 @@ jobs:
         run: python3 -m pip install --upgrade pip vulture
 
       - name: Run Vulture
-        run: vulture sportsclub/ --min-confidence 50 > vulture_report.txt || true
+        run: vulture sportsclub/ --min-confidence 50 > vulture_report.txt || false
 
       - name: Upload report as artifact
         uses: actions/upload-artifact@v4
