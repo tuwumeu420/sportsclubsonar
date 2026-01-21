@@ -91,7 +91,7 @@ jobs:
   sonar-docker:
     name: SonarCloud Analysis (Docker)
     runs-on: ubuntu-latest
-    needs: [lint, test]  # se ejecuta después de Lint y Tests
+    needs: [test]  # se ejecuta después de los Tests
 
     steps:
       - name: Checkout code
