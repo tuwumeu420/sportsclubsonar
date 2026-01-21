@@ -108,7 +108,7 @@ jobs:
         run: vulture sportsclub/ --min-confidence 0 > vulture_report.txt
 
       - name: Upload report as artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: vulture-report
           path: vulture_report.txt
