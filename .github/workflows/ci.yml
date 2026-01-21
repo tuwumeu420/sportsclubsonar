@@ -88,6 +88,31 @@ jobs:
         working-directory: ./sportsclub
         run: python manage.py test --verbosity=2
 
+  vulture:
+    name: Vulture
+    runs-on: ubuntu-latest
+    needs: [test]
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+
+      - name: Install Vulture
+        run: python3 -m pip install --upgrade pip vulture
+
+      - name: Run Vulture analysis
+        run: vulture sportsclub/ --min-confidence 0 > vulture_report.txt
+
+      - name: Upload report as artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: vulture-report
+          path: vulture_report.txt
+
   sonar-docker:
     name: SonarCloud Analysis (Docker)
     runs-on: ubuntu-latest
