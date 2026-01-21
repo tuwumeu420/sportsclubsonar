@@ -93,21 +93,21 @@ jobs:
     runs-on: ubuntu-latest
     needs: [test]
     steps:
-      - name: Checkout code
+      - name: CHECKOUT
         uses: actions/checkout@v4
 
-      - name: Set up Python
+      - name: PYTHON
         uses: actions/setup-python@v5
         with:
           python-version: "3.13"
 
-      - name: Install Vulture
+      - name: INS VULTURE
         run: python3 -m pip install --upgrade pip vulture
 
-      - name: Run Vulture
+      - name: EXEC VULTURE
         run: vulture sportsclub/ --min-confidence 50 > vulture_report.txt || true
 
-      - name: Upload report as artifact
+      - name: UPLOAD REPORT
         uses: actions/upload-artifact@v4
         with:
           name: vulture-report
@@ -119,13 +119,13 @@ jobs:
     needs: [test]  # se ejecuta después de los Tests
 
     steps:
-      - name: Checkout code
+      - name: CHECKOUT
         uses: actions/checkout@v4
 
-      - name: Set SONAR_TOKEN secret
+      - name: Set SONAR_TOKEN SECRETA
         run: echo "SONAR_TOKEN=${{ secrets.SONAR_TOKEN }}" >> $GITHUB_ENV
 
-      - name: Run SonarScanner in Docker
+      - name: SONARSCAN AMB DOCKER
         run: |
           docker run --rm \
             -v "${{ github.workspace }}":/usr/src \
