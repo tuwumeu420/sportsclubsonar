@@ -112,12 +112,17 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
-      - name: Run SonarCloud Scan
+      - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@v2
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         with:
-          organization: tuwusportsclub
-          token: ${{ secrets.SONAR_TOKEN }}
-          projectKey: sportsclub
+        args: >
+          -Dsonar.projectKey=sportsclub
+          -Dsonar.organization=tuwusportsclub
+          -Dsonar.sources=.
+          -Dsonar.host.url=https://sonarcloud.io
+          -Dsonar.python.version=3.13
 
   build:
     name: Build Docker Image
